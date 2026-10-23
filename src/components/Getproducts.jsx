@@ -17,13 +17,18 @@ const Getproducts = () => {
 
   const Getproducts = async () => {
     setLoading("Please Wait, we are retriving the product...")
+    setError("")
 
 
     try {
       const responce = await axios.get("https://emmah.alwaysdata.net/api/get_products_details")
       console.log(responce)
       setProducts(responce.data)
+      setLoading("")
     } catch (error) {
+      setError(error.message)
+      setLoading("")
+
 
     }
   }
@@ -47,6 +52,11 @@ const Getproducts = () => {
     <div className='m-1'>
       <div className="row justify-content-center">
         <h3>Available Products</h3>
+
+        <h4>{loading}</h4>
+        <h4>{error}</h4>
+
+
         <div className='col-md-8 justify-content-center'>
 
           <input type="" className='form-control' placeholder='Search Products...' onChange={(e) => setSearch(e.target.value)} />

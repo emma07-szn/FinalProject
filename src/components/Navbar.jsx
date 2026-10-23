@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion } from 'react-bootstrap'
+
 import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
@@ -19,17 +19,17 @@ const Navbar = () => {
             <div class="col-md-12">
     {/* <!--create  navbar --> */}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="#" class="navbar-brand text-dark"></a>
+       
         <a>
         <img src="logo.jpeg" alt="" height="50" width="50"  />
         </a>
         {/* <a href="#" class="navbar-brand">
           <img src="images/LOgo cake 2.jpeg" alt="" height="50" width="50" style="border-radius: 50%;"></a> */}
-        <a href="#" class="navbar-brand  text-light"></a>
-        <div class="logo">
+        <a href="/" class="navbar-brand  text-light"><div class="logo">
             <h4>Sweet Delight</h4>
             <p>--BAKERY--</p>
-            </div>
+            </div></a>
+        
 
             
 

@@ -5,37 +5,50 @@ import axios from 'axios';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, getCartTotal } = useCart();
-  const [loading,setLoading]=useState("")
-  const [error,setError]=useState("")
-  const [phone,setPhone]=useState("")
-  const [message,setMessage]=useState("")
-  const [product,setProducts]=useState("")
+  const [loading, setLoading] = useState("");
+  const [error, setError] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
   const imgBaseUrl = 'https://emmah.alwaysdata.net/static/images/';
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading("Please wait as we process your request...");
+    setError("");
+    setMessage("");
 
-  const handlesubmit=async(e)=>{
-    e.preventDefault()
-    setLoading("Please wait as we process your request...")
+    if (!phone) {
+      setError("Please enter a valid M-Pesa phone number.");
+      setLoading("");
+      return;
+    }
 
+    try {
+      const formData = new FormData();
+      formData.append("phone", phone);
+      formData.append("amount", getCartTotal());
 
-    // form data
-
-    const formData=new FormData()
-    formData.append("phone",phone)
-    formData.append("amount",product.product_cost);
-
-    const responce=await axios.post("https://emmah.alwaysdata.net/api/mpesa_payment",formData)
-    setMessage(responce.data.message)
-    setLoading("")
-
-  }
-
+      const response = await axios.post("https://emmah.alwaysdata.net/api/mpesa_payment", formData);
+      setMessage(response.data.message);
+      
+      // If your API confirms success, you can optionally redirect or clear the cart here
+      // navigate('/Mpesa', { state: { totalAmount: getCartTotal(), items: cartItems } });
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading("");
+    }
+  };
 
   return (
     <div className="container mt-5">
       <h2>Your Shopping Cart</h2>
+
+      {loading && <div className="alert alert-info">{loading}</div>}
+      {error && <div className="alert alert-danger">{error}</div>}
+      {message && <div className="alert alert-success">{message}</div>}
       
       {cartItems.length === 0 ? (
         <div className="text-center my-5">
@@ -83,8 +96,26 @@ const CartPage = () => {
                 <span>Total Amount:</span>
                 <span className="fw-bold text-success">Ksh {getCartTotal()}</span>
               </div>
-              <button className="btn btn-success w-100" onClick={() => navigate('/Mpesa', { state: { totalAmount: getCartTotal(), items: cartItems } })}> Proceed to M-Pesa Payment
-              </button>
+              
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="phoneInput" className="form-label text-muted small">M-Pesa Phone Number</label>
+                  <input 
+                    id="phoneInput"
+                    type="tel" 
+                    placeholder='2547XXXXXXXX' 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)} 
+                    className='form-control' 
+                    required
+                  />
+                </div>
+                
+                <button type="submit" className="btn btn-success w-100" disabled={!!loading}>
+                  {loading ? "Processing..." : "Proceed to M-Pesa Payment"}
+                </button>
+              </form>
+
               <button className="btn btn-link w-100 mt-2 text-secondary" onClick={() => navigate('/')}>
                 Back to Products
               </button>
