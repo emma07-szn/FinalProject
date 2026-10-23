@@ -30,7 +30,7 @@ const Signup = () => {
 
 
         try {
-            const responce=await axios.post("http://emmah.alwaysdata.net/api/signup",formData)
+            const responce=await axios.post("https://emmah.alwaysdata.net/api/signup",formData)
 
             setLoading("")
             setSuccess(responce.data.success)

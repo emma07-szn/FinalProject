@@ -72,12 +72,12 @@ const Getproducts = () => {
         {filterproduct.map((product) => (
           <div className='col-md-3 justify-content-center mb-2'>
             <div className='card shadow m-2'>
-              <img src={imgurl + product.product_photo} alt="" height="" />
+              <img src={imgurl + product.product_photo} alt="" height="250" />
               <div className='card-body'>
                 <h5 className='text-dark ms-1'>{product.product_name}</h5>
-                <p className='text-muted'>{product.product_description}</p>
+                <p className='text-muted'>{product.product_description?.slice(0,20)}</p>
                 <b className='text-dark'>ksh {product.product_cost}</b><br />
-                <button className='btn btn-danger' onClick={() => navigate("/Mpesa", { state: { product } })}>Buy Now</button> <br /> <br />
+                <button className='btn btn-danger' onClick={() => navigate("/buynowmpesa", { state: { product } })}>Buy Now</button> <br /> <br />
 
                 {/* Action changed to trigger the dynamic redirect */}
                 <button className='btn btn-danger w-50' onClick={() => handleBuyNow(product)}>Add to Cart</button>

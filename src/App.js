@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import { CartProvider } from './components/CartContext';
 import CartPage from './components/CartPage';
 import Account from './components/Account';
+import Buynowmpesa from './components/Buynowmpesa';
 
 
 
@@ -33,6 +34,7 @@ function App() {
             <Route path='/cart' element={<CartPage/>}/>
             <Route path='/addproduct' element={<Addproducts />} />
             <Route path='/account' element={<Account/>}/>
+            <Route path='/buynowmpesa' element={<Buynowmpesa/>} />
 
 
           </Routes>
