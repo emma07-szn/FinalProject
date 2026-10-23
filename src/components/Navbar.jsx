@@ -20,7 +20,7 @@ const Navbar = () => {
     {/* <!--create  navbar --> */}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
        
-        <a>
+        <a href='/'>
         <img src="logo.jpeg" alt="" height="50" width="50"  />
         </a>
         {/* <a href="#" class="navbar-brand">

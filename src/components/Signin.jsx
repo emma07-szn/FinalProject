@@ -33,6 +33,7 @@ const Signin = () => {
 
             const responce=await axios.post("https://emmah.alwaysdata.net/api/signin",formData)
             console.log(responce)
+            setSuccess(responce.data.message)
 
             setLoading("")
             if(responce.data.user){

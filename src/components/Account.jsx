@@ -73,7 +73,7 @@ const Account = () => {
   };
   useEffect(()=>{
     GetUser()
-  },[])
+  },[GetUser])
 
   const deleteuser=async ()=>{
     const confirm=window.confirm("Are you sure you want to delete this account")
